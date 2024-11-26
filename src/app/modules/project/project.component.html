@@ -80,7 +80,7 @@
                         <th>
                             <div class="flex gap-2 flex-wrap justify-content-center mt-2">
                                 <p-button icon="pi pi-eye" pTooltip="Ver" [rounded]="true" [text]="true"
-                                    tooltipPosition="left" size="small" />
+                                    tooltipPosition="left" size="small" (onClick)="goToProjectTasks(item.id)"/>
                                 <p-button icon="pi pi-user-plus" pTooltip="asignar" [rounded]="true" [text]="true"
                                     severity="help" tooltipPosition="right" size="small" />
                             </div>

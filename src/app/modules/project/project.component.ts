@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { IProject } from '@shared/interfaces/project.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -31,11 +32,17 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
     this.initialize();
+  }
+
+  public goToProjectTasks(projectId: number): void {
+    this._router.navigate(['/tasks'], { queryParams: { project: projectId }
+    });
   }
 
   private initialize(): void {
