@@ -1,8 +1,8 @@
 <div class="m-5 sm:px-3 md:px-3 lg:px-5 xlg:px-8">
-    <div class="flex flex-wrap py-5">
+    <div class="flex flex-wrap my-3">
         <div class="text-4xl">TodoEase</div>
     </div>
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap my-3">
         <div class="text-xl">Lista de proyectos</div>
     </div>
     <div class="grid">
@@ -14,29 +14,29 @@
                 [rowsPerPageOptions]="[5,10,20]">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>
+                        <th pSortableColumn="name">
                             <div class="flex justify-content-center">
-                                Nombre
+                                Nombre <p-sortIcon field="name" />
                             </div>
                         </th>
-                        <th>
+                        <th pSortableColumn="description">
                             <div class="flex justify-content-center">
-                                Descripción
+                                Descripción <p-sortIcon field="description" />
                             </div>
                         </th>
-                        <th>
+                        <th pSortableColumn="code">
                             <div class="flex justify-content-center">
-                                Código
+                                Código <p-sortIcon field="code" />
                             </div>
                         </th>
-                        <th>
+                        <th pSortableColumn="startAt">
                             <div class="flex justify-content-center">
-                                Fecha inicio
+                                Fecha inicio <p-sortIcon field="startAt" />
                             </div>
                         </th>
-                        <th>
+                        <th pSortableColumn="endAt">
                             <div class="flex justify-content-center">
-                                Fecha fin
+                                Fecha fin <p-sortIcon field="endtAt" />
                             </div>
                         </th>
                         <th>
@@ -76,8 +76,7 @@
                         <th>
                             <div class="flex gap-2 flex-wrap justify-content-center mt-2">
                                 <p-button icon="pi pi-eye" pTooltip="Ver" rounded="true" tooltipPosition="left" />
-                                <p-button icon="pi pi-pencil" pTooltip="Editar" rounded="true"
-                                    tooltipPosition="right" />
+                                <p-button icon="pi pi-plus" pTooltip="asignar" rounded="true" tooltipPosition="right" />
                             </div>
                         </th>
                     </tr>
