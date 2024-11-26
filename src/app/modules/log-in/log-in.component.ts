@@ -32,6 +32,7 @@ export class LogInComponent implements OnInit {
   private readonly MIN_PASSWORD_LENGTH = 1;
   private readonly MAX_EMAIL_LENGTH = 50;
   private readonly MESSAGE_LIFE = 2000;
+  private readonly MESSAGE_ERROR = 'Usuario o contraseña incorrectos';
 
   ngOnInit() {
     this.authForm = new FormGroup({
@@ -66,7 +67,6 @@ export class LogInComponent implements OnInit {
 
   public submitAuthForm() {
     if (!this.isFormValid()) {
-      console.log('Formulario es invalido');
       return;
     }
     this.sendformRequest();
@@ -81,10 +81,11 @@ export class LogInComponent implements OnInit {
   }
 
   private showErrorMessage() {
+    this.messageService.clear();
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
-      detail: 'Usuario o contraseña incorrectos',
+      detail: this.MESSAGE_ERROR,
       life: this.MESSAGE_LIFE,
     });
   }
@@ -96,7 +97,6 @@ export class LogInComponent implements OnInit {
         this.redirectToHome();
       },
       error: (error) => {
-        console.error('Error: ', error);
         this.showErrorMessage();
       },
     });
