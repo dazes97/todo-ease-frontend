@@ -2,7 +2,11 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IRequest } from '../interfaces/request.interface';
 import { HttpClient } from '@angular/common/http';
-import { IProject, IProjectCreate } from '@shared/interfaces/project.interface';
+import {
+  IProject,
+  IProjectCreate,
+  IProjectUserAssign,
+} from '@shared/interfaces/project.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +22,12 @@ export class ProjectService {
     return this.httpClient.post<IRequest<IProjectCreate>>(
       `${this.API_URL}/create`,
       project
+    );
+  }
+  assignUser(assign: IProjectUserAssign): Observable<IRequest<any>> {
+    return this.httpClient.post<IRequest<any>>(
+      `${this.API_URL}/assign`,
+      assign
     );
   }
 }

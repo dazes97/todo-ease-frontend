@@ -19,3 +19,10 @@ export interface IProjectCreate {
   startAt: Date;
   endAt: Date;
 }
+
+export interface IProjectUserAssign {
+  projectId: number;
+  userId: number;
+  isOwner: boolean;
+  enabled: boolean;
+}

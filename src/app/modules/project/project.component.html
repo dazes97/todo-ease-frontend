@@ -82,7 +82,8 @@
                                 <p-button icon="pi pi-eye" pTooltip="Ver" [rounded]="true" [text]="true"
                                     tooltipPosition="left" size="small" />
                                 <p-button icon="pi pi-user-plus" pTooltip="asignar" [rounded]="true" [text]="true"
-                                    severity="help" tooltipPosition="right" size="small" />
+                                    severity="help" tooltipPosition="right" size="small"
+                                    (onClick)="openAssignProjectDialog(item.id)" />
                             </div>
                         </th>
                     </tr>
