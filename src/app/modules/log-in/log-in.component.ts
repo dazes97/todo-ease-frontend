@@ -77,7 +77,7 @@ export class LogInComponent implements OnInit {
   }
 
   private redirectToHome() {
-    this.router.navigate(['/projects'], { replaceUrl: true });
+    this.router.navigate(['/'], { replaceUrl: true });
   }
 
   private showErrorMessage() {
