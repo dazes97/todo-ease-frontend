@@ -33,7 +33,7 @@
         [paginator]="true"
         [rows]="10"
         [rowsPerPageOptions]="[5, 10, 20]"
-        [tableStyle]="{ minWidth:'10rem' }"
+        [tableStyle]="{ minWidth: '10rem' }"
         [value]="tasks"
       >
         <ng-template pTemplate="header">
@@ -129,17 +129,20 @@
             </th>
             <th>
               <div class="flex flex-wrap justify-content-center mt-2">
-                <p class="text-base">{{ item.assignedName }}</p>
+                <p class="text-base" *ngIf="item.assignedName">{{ item.assignedName }}</p>
+                <p class="text-base" *ngIf="!item.assignedName">N/A</p>
               </div>
             </th>
             <th>
               <div class="flex flex-wrap justify-content-center mt-2">
-                <p class="text-base">{{ item.startAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="item.startAt">{{ item.startAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="!item.startAt">N/A</p>
               </div>
             </th>
             <th>
               <div class="flex flex-wrap justify-content-center mt-2">
-                <p class="text-base">{{ item.endAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="item.endAt">{{ item.endAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="!item.endAt">N/A</p>
               </div>
             </th>
             <th>
@@ -149,7 +152,8 @@
             </th>
             <th>
               <div class="flex flex-wrap justify-content-center mt-2">
-                <p class="text-base">{{ item.updatedAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="item.updatedAt">{{ item.updatedAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="!item.updatedAt">N/A</p>
               </div>
             </th>
             <th>
