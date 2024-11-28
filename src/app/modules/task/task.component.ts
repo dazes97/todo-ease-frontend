@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Button } from 'primeng/button';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
@@ -16,6 +16,8 @@ import { TaskStatusPipe } from '@shared/pipes/task-status.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '@shared/services/task.service';
 import { IRequest } from '@shared/interfaces/request.interface';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CreateTaskComponent } from '@modules/task/components/create-task/create-task.component';
 
 @Component({
   selector: 'app-task',
@@ -30,8 +32,10 @@ import { IRequest } from '@shared/interfaces/request.interface';
     DropdownModule,
     FormsModule,
     TaskPriorityPipe,
-    TaskStatusPipe
+    TaskStatusPipe,
+    NgIf
   ],
+  providers: [DynamicDialogRef, DialogService],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
@@ -51,7 +55,9 @@ export class TaskComponent implements OnInit, OnDestroy {
     private _projectService: ProjectService,
     private _taskService: TaskService,
     private _messageService: MessageService,
-    private _router: Router
+    private _router: Router,
+    private _dynamicDialogRef: DynamicDialogRef,
+    private _dialogService: DialogService
   ) {
     this.loadingProjects = false;
     this.projects = [];
@@ -68,14 +74,33 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   public openCreateTaskDialog(): void {
-
+    this._dynamicDialogRef = this._dialogService.open(
+      CreateTaskComponent,
+      {
+        data: {
+          selectedProjectId: this.selectedProjectId
+        },
+        header: 'Crear Tarea',
+        width: '30%',
+        height: '60%',
+        closable: true
+      }
+    );
+    this._dynamicDialogRef.onClose.subscribe((value) => {
+      if (value) {
+        this._loadTasks();
+      }
+    });
   }
 
   public onSelectProject(): void {
-    this._router.navigate([], {
-      relativeTo: this._activatedRoute,
-      queryParams: this.selectedProjectId ? { project: this.selectedProjectId } : {}
-    });
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._activatedRoute,
+        queryParams: this.selectedProjectId ? { project: this.selectedProjectId } : {}
+      }
+    );
     this._loadTasks();
   }
 
@@ -101,7 +126,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.projects = [...body];
         this._loadTasks();
       },
-      error: (error) => {
+      error: () => {
         this.loadingProjects = false;
         this._messageService.add({
           severity: 'error',
@@ -122,7 +147,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.loadingTasks = false;
         this.tasks = [...body];
       },
-      error: (error) => {
+      error: () => {
         this.loadingTasks = false;
         this._messageService.add({
           severity: 'error',

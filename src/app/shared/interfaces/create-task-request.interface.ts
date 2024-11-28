@@ -1,23 +1,14 @@
 import { TaskPriority } from '@shared/enums/task-priority.enum';
 import { TaskStatus } from '@shared/enums/task-status.enum';
 
-export interface Task {
-  id: number;
+export interface CreateTaskRequest {
   name: string;
   description?: string;
-  code: string;
   taskPriorityId: TaskPriority;
   taskStatusId: TaskStatus;
   estimate?: number;
-  startAt?: Date;
-  endAt?: Date;
+  startAt?: string;
+  endAt?: string;
   projectId: number;
-  reporterUserId: number;
   assignedUserId?: number;
-  createdAt: Date;
-  updatedAt: Date;
-  projectName: string;
-  projectCode: string;
-  reporterName: string;
-  assignedName?: string;
 }
