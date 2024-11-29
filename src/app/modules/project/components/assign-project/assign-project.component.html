@@ -1,0 +1,18 @@
+<form class="p-5" [formGroup]="assignForm" (submit)="submitAssignForm()">
+    <div class="grid">
+        <div class="col-12 flex justify-content-center">
+            <p-dropdown [options]="userList" [checkmark]="true" optionLabel="fullname" optionValue="id"
+                [showClear]="true" placeholder="Selecciona un usuario" formControlName="user" [loading]="isLoading"
+                variant="filled" />
+            <small class="my-1 px-1 text-red-500" *ngIf="assignForm.getError('user')">Campo requerido o no cumple
+                formato</small>
+        </div>
+        <div class="col-12 flex justify-content-center">
+            <button type="submit" pButton class="btn btn-primary" [disabled]="assignForm.invalid">Asignar</button>
+        </div>
+        <div class="col-12 flex justify-content-center">
+            <p-messages />
+        </div>
+
+    </div>
+</form>

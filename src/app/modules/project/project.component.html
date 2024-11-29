@@ -1,0 +1,94 @@
+<div class="m-5 sm:px-3 md:px-3 lg:px-5 xlg:px-8">
+    <div class="flex flex-wrap mt-3">
+        <div class="text-4xl">TodoEase</div>
+    </div>
+    <div class="flex flex-wrap mt-3">
+        <div class="text-xl">Lista de proyectos</div>
+    </div>
+    <div class="flex flex-wrap my-5">
+        <p-button icon="pi pi-plus" size="small" iconPos="right" label="Crear proyecto" rounded="true"
+            (onClick)="openCreateProjectDialog()"></p-button>
+    </div>
+    <div class="grid">
+        <div class="col-12" *ngIf="isLoading">
+            <p-skeleton width="100%" height="20rem" />
+        </div>
+        <div class="col-12" *ngIf="!isLoading">
+            <p-table [value]="projects" [tableStyle]="{ minWidth:'10rem' }" [paginator]="true" [rows]="10"
+                [rowsPerPageOptions]="[5,10,20]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">
+                            <div class="flex justify-content-center">
+                                Nombre <p-sortIcon field="name" />
+                            </div>
+                        </th>
+                        <th pSortableColumn="description">
+                            <div class="flex justify-content-center">
+                                Descripción <p-sortIcon field="description" />
+                            </div>
+                        </th>
+                        <th pSortableColumn="code">
+                            <div class="flex justify-content-center">
+                                Código <p-sortIcon field="code" />
+                            </div>
+                        </th>
+                        <th pSortableColumn="startAt">
+                            <div class="flex justify-content-center">
+                                Fecha inicio <p-sortIcon field="startAt" />
+                            </div>
+                        </th>
+                        <th pSortableColumn="endAt">
+                            <div class="flex justify-content-center">
+                                Fecha fin <p-sortIcon field="endtAt" />
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-center">
+                                Acciones
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <th>
+                            <div class="flex flex-wrap justify-content-center mt-2">
+                                <p class="text-base">{{item.name}}</p>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex flex-wrap justify-content-center mt-2">
+                                <p class="text-base">{{item.description}}</p>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex flex-wrap justify-content-center mt-2">
+                                <p class="text-base">{{item.code}}</p>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex flex-wrap justify-content-center mt-2">
+                                <p class="text-base">{{item.startAt | date:'dd/MM/YYYY'}}</p>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex flex-wrap justify-content-center mt-2">
+                                <p class="text-base">{{item.endAt | date:'dd/MM/YYYY'}}</p>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex gap-2 flex-wrap justify-content-center mt-2">
+                                <p-button icon="pi pi-eye" pTooltip="Ver" [rounded]="true" [text]="true"
+                                    tooltipPosition="left" size="small" (onClick)="goToProjectTasks(item.projectId)"/>
+                                <p-button icon="pi pi-user-plus" pTooltip="asignar" [rounded]="true" [text]="true"
+                                    severity="help" tooltipPosition="right" size="small"
+                                    (onClick)="openAssignProjectDialog(item.id)" />
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

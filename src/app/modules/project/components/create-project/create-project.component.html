@@ -1,0 +1,40 @@
+<form class="p-5" [formGroup]="projectForm" (submit)="submitCreateForm()">
+    <div class="grid">
+        <div class="col-12">
+            <input type="text" pInputText formControlName="name" id="name" placeholder="Nombre del proyecto"
+                [class]="getFormError('name')?'ng-invalid ng-dirty w-full':'w-full'" />
+            <small class="my-1 px-1 text-red-500" *ngIf="getFormError('name')">Campo requerido o no cumple
+                formato</small>
+        </div>
+        <div class="col-12">
+            <input type="text" pInputText formControlName="description" id="description"
+                placeholder="descripcion del proyecto"
+                [class]="getFormError('description')?'ng-invalid ng-dirty w-full':'w-full'" />
+            <small class="my-1 px-1 text-red-500" *ngIf="getFormError('description')">Campo requerido o no cumple
+                formato</small>
+        </div>
+        <div class="col-12">
+            <input type="text" pInputText formControlName="code" id="code" placeholder="Codigo"
+                [class]="getFormError('code')?'ng-invalid ng-dirty w-full':'w-full'" />
+            <small class="my-1 px-1 text-red-500" *ngIf="getFormError('code')">Campo requerido o no cumple
+                formato</small>
+        </div>
+        <div class="col-12 flex flex-wrap">
+            <p-calendar formControlName="startAt" dateFormat="dd/mm/yy" [iconDisplay]="'input'" [showIcon]="true"
+                id="startAt" placeholder="Fecha de inicio" [touchUI]="true"
+                [class]="getFormError('dateRange')?'ng-invalid ng-dirty w-full':'w-full'" />
+            <small class="my-1 px-1 text-red-500" *ngIf="projectForm.hasError('dateRange')">Campo requerido o no cumple
+                rango de fechas</small>
+        </div>
+        <div class="col-12 flex flex-wrap">
+            <p-calendar formControlName="endAt" dateFormat="dd/mm/yy" [iconDisplay]="'input'" [showIcon]="true"
+                id="endAt" placeholder="Fecha de finalización" [touchUI]="true"
+                [class]="getFormError('dateRange')?'ng-invalid ng-dirty w-full':'w-full'" />
+            <small class="my-1 px-1 text-red-500" *ngIf="projectForm.getError('dateRange')">Campo requerido o no cumple
+                rango de fechas</small>
+        </div>
+        <div class="col-12 flex justify-content-center">
+            <button type="submit" pButton class="btn btn-primary" [disabled]="projectForm.invalid">Crear</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,167 @@
+<div class="modal-container">
+  <div class="modal-body">
+    <form [formGroup]="createTaskForm">
+      <div class="formgrid grid">
+        <div class="field sm:col-6 col-6">
+          <label for="projectId">Proyecto</label>
+          <p-dropdown
+            appendTo="body"
+            formControlName="projectId"
+            id="projectId"
+            optionLabel="name"
+            optionValue="projectId"
+            placeholder="Seleccionar proyecto"
+            styleClass="p-inputtext-sm w-full"
+            [loading]="loadingProjects"
+            [options]="projects"
+          ></p-dropdown>
+          <small class="p-error" *ngIf="(projectId?.touched || projectId?.dirty) && projectId?.errors?.['required']">
+            El proyecto es requerido
+          </small>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field sm:col-12 col-12">
+          <label for="name">Nombre</label>
+          <input class="p-inputtext-sm w-full" formControlName="name" id="name" type="text" pInputText/>
+          <small class="p-error" *ngIf="(name?.touched || name?.dirty) && name?.errors?.['required']">
+            El nombre es requerido
+          </small>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field sm:col-12 col-12">
+          <label for="description">Descripción</label>
+          <textarea
+            class="p-inputtext-sm w-full"
+            formControlName="description"
+            id="description"
+            type="text"
+            pInputTextarea
+            [autoResize]="true"
+          ></textarea>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field sm:col-6 col-6">
+          <label for="priority">Prioridad</label>
+          <p-dropdown
+            appendTo="body"
+            formControlName="priority"
+            id="priority"
+            placeholder="Seleccionar prioridad"
+            styleClass="p-inputtext-sm w-full"
+            [options]="priorities"
+          >
+            <ng-template pTemplate="selectedItem" let-selectedPriority>
+              {{ selectedPriority | taskPriority }}
+            </ng-template>
+            <ng-template pTemplate="item" let-priority>
+              {{ priority | taskPriority }}
+            </ng-template>
+          </p-dropdown>
+          <small class="p-error" *ngIf="(priority?.touched || priority?.dirty) && priority?.errors?.['required']">
+            La prioridad es requerida
+          </small>
+        </div>
+        <div class="field sm:col-6 col-6">
+          <label for="status">Estado</label>
+          <p-dropdown
+            appendTo="body"
+            formControlName="status"
+            id="status"
+            placeholder="Seleccionar estado"
+            styleClass="p-inputtext-sm w-full"
+            [options]="statuses"
+          >
+            <ng-template pTemplate="selectedItem" let-selectedStatus>
+              {{ selectedStatus | taskStatus }}
+            </ng-template>
+            <ng-template pTemplate="item" let-status>
+              {{ status | taskStatus }}
+            </ng-template>
+          </p-dropdown>
+          <small class="p-error" *ngIf="(status?.touched || status?.dirty) && status?.errors?.['required']">
+            El estado es requerido
+          </small>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field sm:col-6 col-6">
+          <label for="estimate">Estimación</label>
+          <p-inputNumber
+            class="p-inputtext-sm w-full"
+            formControlName="estimate"
+            id="estimate"
+            [style]="{ width: '100%' }"
+          />
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field sm:col-6 col-6">
+          <label for="startAt">Fecha inicio</label>
+          <p-calendar
+            appendTo="body"
+            dateFormat="dd/mm/yy"
+            formControlName="startAt"
+            id="startAt"
+            placeholder="Fecha inicio"
+            [iconDisplay]="'input'"
+            [minDate]="TODAY"
+            [showButtonBar]="true"
+            [showIcon]="true"
+            [styleClass]="'p-inputtext-sm w-full'"
+          ></p-calendar>
+        </div>
+        <div class="field sm:col-6 col-6">
+          <label for="endAt">Fecha fin</label>
+          <p-calendar
+            appendTo="body"
+            dateFormat="dd/mm/yy"
+            formControlName="endAt"
+            id="endAt"
+            placeholder="Fecha fin"
+            [iconDisplay]="'input'"
+            [minDate]="TODAY"
+            [showButtonBar]="true"
+            [showIcon]="true"
+            [styleClass]="'p-inputtext-sm w-full'"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field sm:col-6 col-6">
+          <label for="assignedUser">Asignado</label>
+          <p-dropdown
+            appendTo="body"
+            formControlName="assignedUser"
+            id="assignedUser"
+            placeholder="Seleccionar usuario"
+            styleClass="p-inputtext-sm w-full"
+            [loading]="loadingUsers"
+            [options]="users"
+            [showClear]="true"
+          >
+            <ng-template pTemplate="selectedItem" let-selectedUser>
+              {{ selectedUser.firstname + ' ' + selectedUser.lastname }}
+            </ng-template>
+            <ng-template pTemplate="item" let-user>
+              {{ user.firstname + ' ' + user.lastname }}
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      class="p-button-sm"
+      id="create-task-button"
+      label="Crear Tarea"
+      type="submit"
+      pButton
+      [disabled]="createTaskForm.invalid || creatingTask"
+      (click)="createTask()"
+    ></button>
+  </div>
+</div>
