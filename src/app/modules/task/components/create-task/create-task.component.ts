@@ -80,7 +80,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     this.users = [];
     this.creatingTask = false;
 
-    this.TODAY = new Date();
+    this.TODAY = new Date(new Date().setHours(0, 0, 0, 0));
   }
 
   public ngOnInit(): void {

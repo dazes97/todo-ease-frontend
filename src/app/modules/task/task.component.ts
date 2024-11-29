@@ -18,6 +18,7 @@ import { TaskService } from '@shared/services/task.service';
 import { IRequest } from '@shared/interfaces/request.interface';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateTaskComponent } from '@modules/task/components/create-task/create-task.component';
+import { TaskDetailComponent } from '@modules/task/components/task-detail/task-detail.component';
 
 @Component({
   selector: 'app-task',
@@ -102,6 +103,20 @@ export class TaskComponent implements OnInit, OnDestroy {
       }
     );
     this._loadTasks();
+  }
+
+  public openTaskDetailDialog(task: Task): void {
+    this._dynamicDialogRef = this._dialogService.open(
+      TaskDetailComponent,
+      {
+        data: { task },
+        header: task.code,
+        width: '30%',
+        height: '75%',
+        closable: true
+      }
+    );
+    this._dynamicDialogRef.onClose.subscribe(() => this._loadTasks());
   }
 
   private _initialize(): void {
