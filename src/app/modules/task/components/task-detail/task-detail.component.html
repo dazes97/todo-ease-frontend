@@ -1,29 +1,22 @@
 <div class="modal-container">
   <div class="modal-body">
-    <form [formGroup]="createTaskForm">
+    <form [formGroup]="taskDetailForm">
       <div class="formgrid grid">
         <div class="field sm:col-6 col-6">
-          <label for="projectId">Proyecto</label>
-          <p-dropdown
-            appendTo="body"
-            formControlName="projectId"
-            id="projectId"
-            optionLabel="name"
-            optionValue="projectId"
-            placeholder="Seleccionar proyecto"
-            styleClass="p-inputtext-sm w-full"
-            [loading]="loadingProjects"
-            [options]="projects"
-          ></p-dropdown>
-          <small class="p-error" *ngIf="(projectId?.touched || projectId?.dirty) && projectId?.errors?.['required']">
-            El proyecto es requerido
-          </small>
+          <label for="project">Proyecto</label>
+          <input class="p-inputtext-sm w-full" formControlName="project" id="project" type="text" pInputText/>
         </div>
       </div>
       <div class="formgrid grid">
         <div class="field sm:col-12 col-12">
           <label for="name">Nombre</label>
-          <input class="p-inputtext-sm w-full" formControlName="name" id="name" type="text" pInputText/>
+          <input
+            class="p-inputtext-sm w-full"
+            formControlName="name"
+            id="name"
+            type="text"
+            pInputText
+          />
           <small class="p-error" *ngIf="(name?.touched || name?.dirty) && name?.errors?.['required']">
             El nombre es requerido
           </small>
@@ -151,17 +144,52 @@
           </p-dropdown>
         </div>
       </div>
+      <div class="formgrid grid">
+        <div class="field sm:col-6 col-6">
+          <label for="createdAt">Creada</label>
+          <p-calendar
+            appendTo="body"
+            dateFormat="dd/mm/yy"
+            formControlName="createdAt"
+            id="createdAt"
+            placeholder="Creada"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            [styleClass]="'p-inputtext-sm w-full'"
+          ></p-calendar>
+        </div>
+        <div class="field sm:col-6 col-6" *ngIf="taskDetailForm.get('updatedAt')?.value">
+          <label for="updatedAt">Actualizada</label>
+          <p-calendar
+            appendTo="body"
+            dateFormat="dd/mm/yy"
+            formControlName="updatedAt"
+            id="updatedAt"
+            placeholder="Actualizada"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            [styleClass]="'p-inputtext-sm w-full'"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field sm:col-6 col-6">
+          <label for="reporterName">Reportero</label>
+          <input class="p-inputtext-sm w-full" formControlName="reporterName" id="reporterName" type="text" pInputText/>
+        </div>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
     <button
       class="p-button-sm"
-      id="create-task-button"
-      label="Crear Tarea"
+      id="update-task-button"
+      label="Guardar Cambios"
       type="submit"
       pButton
-      [disabled]="createTaskForm.invalid || creatingTask"
-      (click)="createTask()"
+      [disabled]="taskDetailForm.invalid || updatingTask"
+      (click)="updateTask()"
+      *ngIf="thereAreChanges"
     ></button>
   </div>
 </div>

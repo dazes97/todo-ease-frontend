@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IRequest } from '@shared/interfaces/request.interface';
 import { Task } from '@shared/interfaces/task.interface';
 import { CreateTaskRequest } from '@shared/interfaces/create-task-request.interface';
+import { UpdateTaskRequest } from '@shared/interfaces/update-task-request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,9 @@ export class TaskService {
 
   public createTask(request: CreateTaskRequest): Observable<IRequest<any>> {
     return this._httpClient.post<IRequest<any>>(`${this._API_URL}/create`, request);
+  }
+
+  public updateTask(request: UpdateTaskRequest): Observable<IRequest<any>> {
+    return this._httpClient.post<IRequest<any>>(`${this._API_URL}/update`, request);
   }
 }

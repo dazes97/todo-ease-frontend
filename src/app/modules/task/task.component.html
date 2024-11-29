@@ -16,7 +16,7 @@
     ></p-button>
     <p-dropdown
       optionLabel="name"
-      optionValue="id"
+      optionValue="projectId"
       placeholder="Seleccionar proyecto"
       styleClass="w-auto"
       [loading]="loadingProjects"
@@ -135,24 +135,28 @@
             </th>
             <th>
               <div class="flex flex-wrap justify-content-center mt-2">
-                <p class="text-base" *ngIf="item.startAt">{{ item.startAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="item.startAt">
+                  {{ item.startAt | date:'dd/MM/YYYY':'UTC' }}
+                </p>
                 <p class="text-base" *ngIf="!item.startAt">N/A</p>
               </div>
             </th>
             <th>
               <div class="flex flex-wrap justify-content-center mt-2">
-                <p class="text-base" *ngIf="item.endAt">{{ item.endAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="item.endAt">{{ item.endAt | date:'dd/MM/YYYY':'UTC' }}</p>
                 <p class="text-base" *ngIf="!item.endAt">N/A</p>
               </div>
             </th>
             <th>
               <div class="flex flex-wrap justify-content-center mt-2">
-                <p class="text-base">{{ item.createdAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base">{{ item.createdAt | date:'dd/MM/YYYY':'UTC' }}</p>
               </div>
             </th>
             <th>
               <div class="flex flex-wrap justify-content-center mt-2">
-                <p class="text-base" *ngIf="item.updatedAt">{{ item.updatedAt | date:'dd/MM/YYYY' }}</p>
+                <p class="text-base" *ngIf="item.updatedAt">
+                  {{ item.updatedAt | date:'dd/MM/YYYY':'UTC' }}
+                </p>
                 <p class="text-base" *ngIf="!item.updatedAt">N/A</p>
               </div>
             </th>
@@ -163,10 +167,15 @@
             </th>
             <th>
               <div class="flex gap-2 flex-wrap justify-content-center mt-2">
-                <p-button icon="pi pi-eye" pTooltip="Ver" [rounded]="true" [text]="true"
-                          tooltipPosition="left" size="small"/>
-                <p-button icon="pi pi-user-plus" pTooltip="asignar" [rounded]="true" [text]="true"
-                          severity="help" tooltipPosition="right" size="small"/>
+                <p-button
+                  icon="pi pi-eye"
+                  pTooltip="Ver Tarea"
+                  size="small"
+                  tooltipPosition="left"
+                  [rounded]="true"
+                  [text]="true"
+                  (onClick)="openTaskDetailDialog(item)"
+                />
               </div>
             </th>
           </tr>
